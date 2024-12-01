@@ -3,3 +3,6 @@ numpy
 matplotlib
 scipy
 jupyterlab
+keras
+tensorflow[and-cuda]
+scikit-learn
