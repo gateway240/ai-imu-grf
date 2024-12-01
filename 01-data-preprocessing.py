@@ -4,22 +4,21 @@ import pandas as pd
 import numpy as np
 from scipy.signal import decimate
 
+directory_to_traverse = "/home/alexbeat/data/kuopio-gait-dataset-processed-v2"  # Change this to your target directory
 
 def load_data(file_path):
     df = pd.read_csv(file_path, skiprows=[1, 2, 3, 4], header=1, delimiter="\t")
     return df
 
-
 def process_file(file_path):
     """Function to process a file based on its extension."""
     print(f"Processing file: {file_path}")
-    fs = 100  # Desired sampling frequency for GRFs
+
     processed = False
     written = False
     df = load_data(file_path)
     # Split the file name and extension
     file_name, file_extension = os.path.splitext(file_path)
-
     file_type = file_name.rsplit('_', 1)[-1]
 
     result_df = []
@@ -29,10 +28,10 @@ def process_file(file_path):
         forces_df = df[
             ["time", f"f{force_num}_1", f"f{force_num}_2", f"f{force_num}_3"]
         ]
-        # downsampling factor
-        decim_factor = int(1000 / fs)
-        decimate_columns = forces_df.apply(lambda x: decimate(x, decim_factor))
-        result_df = decimate_columns
+        # Originally had down sampling/decimating here but need to move it to later in processing
+        # This is needed since if the original samples are not a multiple of 10 it won't decimate cleanly
+
+        result_df = forces_df
         processed = True
     elif file_type == "accelerations"  or file_type == "orientations":
         # print("Accelerations or Orientations File!")
@@ -91,6 +90,5 @@ def main(directory):
 if __name__ == "__main__":
     print("---Beginning Script!---")
     # Specify the directory to traverse
-    directory_to_traverse = "/home/alexbeat/data/kuopio-gait-dataset-processed-v2"  # Change this to your target directory
     main(directory_to_traverse)
     print("---Ending Script!---")
