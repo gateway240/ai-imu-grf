@@ -7,6 +7,8 @@ from scipy.signal import decimate
 
 directory_to_traverse = "/home/alexbeat/data/kuopio-gait-dataset-processed-v2"  # Change this to your target directory
 output_root_path = "/home/alexbeat/data/kuopio-gait-dataset-ml"
+input_folder = "input"
+output_folder = "output"
 fs = 100  # Desired sampling frequency for GRFs
 
 def trim_dataframe(df, multiple):
@@ -101,8 +103,8 @@ def process_file_group(top_level_dir, parent_suffix, file_group):
         # print(f"File Extension: {file_extension}")
         output_dir = os.path.join(output_root_path, top_level_dir)
     
-        input_csv_file_path = os.path.join(output_root_path,f"{top_level_dir}-{parent_suffix}-input.csv")
-        output_csv_file_path = os.path.join(output_root_path, f"{top_level_dir}-{parent_suffix}-output.csv")
+        input_csv_file_path = os.path.join(output_root_path,input_folder,f"{top_level_dir}-{parent_suffix}-input.csv")
+        output_csv_file_path = os.path.join(output_root_path,output_folder, f"{top_level_dir}-{parent_suffix}-output.csv")
         # print("shape test")
         # print(input_df.shape)
         # print(output_df.shape)
@@ -169,8 +171,8 @@ def main(directory):
                 print(f"  {key}: {files}")
 
     # Determine the number of available threads
-    # max_workers = os.cpu_count()  # Get the number of CPU cores
-    max_workers = 1
+    max_workers = os.cpu_count()  # Get the number of CPU cores
+    # max_workers = 1
     print(f"Using {max_workers} threads.")
     # print(filtered_files)
     # Use ThreadPoolExecutor to process each group of three files
@@ -191,7 +193,8 @@ def main(directory):
 if __name__ == "__main__":
     print("---Beginning Script!---")
 
-    os.makedirs(output_root_path, exist_ok=True)  # exist_ok=True prevents raising an error if the directory exists
+    os.makedirs(os.path.join(output_root_path,output_folder), exist_ok=True)  # exist_ok=True prevents raising an error if the directory exists
+    os.makedirs(os.path.join(output_root_path,input_folder), exist_ok=True) 
     # Specify the directory to traverse
    
     main(directory_to_traverse)
