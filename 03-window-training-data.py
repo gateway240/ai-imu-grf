@@ -36,7 +36,8 @@ def process_file_group(parent_suffix, file_group):
             index_z = np.where(np.abs(output_df[z_force_key])>5)[0]
             if index_z.size > 0:
                 min_index = index_z.min()
-                max_index = index_z.max()
+                max_index = min_index + 100
+                print(f"min: {min_index} and max: {max_index}")
                 #extended window length
 
                 windowed_out = output_df.iloc[min_index:max_index + 1]
