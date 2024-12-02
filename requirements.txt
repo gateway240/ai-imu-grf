@@ -6,4 +6,5 @@ jupyterlab
 keras
 tensorflow[and-cuda]
 scikit-learn
+OneEuroFilter
 black
