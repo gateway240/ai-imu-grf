@@ -27,7 +27,6 @@ def trim_dataframe(df, multiple):
 
     # Step 2: Calculate the number of frames to remove
     frames_to_remove = num_frames % multiple
-    print('frames to remove', frames_to_remove)
 
     # Step 3: Remove frames from the beginning and end
     if frames_to_remove > 0:
@@ -77,14 +76,14 @@ def process_file_group(top_level_dir, parent_suffix, file_group):
         multiple_of = 10
         desired_length = multiple_of * len(input_df)
         output_trimmed_df = df.iloc[:desired_length]  # Keep all rows except the last `num_rows`
-        print(input_df.shape)
-        print(output_trimmed_df.shape)
+        # print(input_df.shape)
+        # print(output_trimmed_df.shape)
         
         input_df_trim = trim_dataframe(input_df, fs)
         output_df_trim = trim_dataframe(output_trimmed_df, fs * multiple_of)
         # Display the cleaned DataFrame and its new length
-        print("Input Number of frames:", len(input_df_trim))
-        print("Output Number of frames:", len(output_df_trim))
+        # print("Input Number of frames:", len(input_df_trim))
+        # print("Output Number of frames:", len(output_df_trim))
 
         # downsampling factor
         input_df = input_df_trim.reset_index(drop=True)

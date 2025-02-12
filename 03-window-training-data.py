@@ -46,8 +46,8 @@ def process_file_group(parent_suffix, file_group):
                     max_index = index_z.max()
                 
                 #half of force plate activation region added to both ends of the window
-                #min_index = min_index-int((max_index-min_index)/2)
-                #max_index = max_index+int((max_index-min_index)/2) 
+                min_index = min_index-int((max_index-min_index)/2)
+                max_index = max_index+int((max_index-min_index)/2) 
                 
                 print(f"min: {min_index} and max: {max_index}")
                 #extended window length
