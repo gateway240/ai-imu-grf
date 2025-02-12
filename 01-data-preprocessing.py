@@ -26,7 +26,7 @@ def process_file(file_path):
         # print("GRF File!")
         force_num = 2
         forces_df = df[
-            ["time", f"f{force_num}_1", f"f{force_num}_2", f"f{force_num}_3"]
+            ["time", f"f{force_num}_1", f"f{force_num}_2", f"f{force_num}_3", f"p{force_num}_1", f"p{force_num}_2", f"p{force_num}_3", f"m{force_num}_1", f"m{force_num}_2", f"m{force_num}_3"]
         ]
         # Originally had down sampling/decimating here but need to move it to later in processing
         # This is needed since if the original samples are not a multiple of 10 it won't decimate cleanly
